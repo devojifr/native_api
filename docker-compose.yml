@@ -1,0 +1,63 @@
+services:
+  web:
+    image: php:7.4.28-fpm-alpine3.14
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: php_web
+    depends_on:
+      - db
+    volumes:
+      - ./app:/var/www/html # Monte le répertoire local courant vers le conteneur
+    ports:
+      - "8080:80" # Expose le port 80 du conteneur sur le port 8080 de l'hôte
+    networks:
+      - webnet
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: native_api
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "33060:3306" # port 3306 already in use on my local environment
+    networks:
+      - webnet
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    restart: always
+    depends_on:
+      - db
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      - "8081:80" # port 8080 already in use on my local environment
+    networks:
+      - webnet
+
+  nginx:
+    image: nginx:alpine # NGINX sur un système Alpine pour servir l'API
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf # Fichier de configuration NGINX
+      - ./app:/var/www/html
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    driver: bridge
+
+volumes:
+  db_data:
