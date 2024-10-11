@@ -8,11 +8,15 @@ services:
     depends_on:
       - db
     volumes:
-      - ./app:/var/www/html # Monte le répertoire local courant vers le conteneur
+      - ./app:/var/www/html # mount local "app" folder to container
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - ./xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     ports:
-      - "8080:80" # Expose le port 80 du conteneur sur le port 8080 de l'hôte
+      - "8080:80"
     networks:
       - webnet
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Needed for Xdebug
 
   db:
     image: mysql:5.7
@@ -38,20 +42,18 @@ services:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: 'root'
     ports:
-      - "8081:80" # port 8080 already in use on my local environment
+      - "8082:80"
     networks:
       - webnet
 
   nginx:
-    image: nginx:alpine # NGINX sur un système Alpine pour servir l'API
+    image: nginx:alpine
     container_name: nginx
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf # Fichier de configuration NGINX
+      - ./nginx.conf:/etc/nginx/nginx.conf
       - ./app:/var/www/html
     ports:
-      - "80:80"
-    depends_on:
-      - web
+      - "8081:80"
     networks:
       - webnet
 
