@@ -29,7 +29,11 @@ $uri = $_SERVER['REQUEST_URI'];
 //$token = Auth::generateToken($userId);
 //dd($token);
 
-if ($method === 'GET' && $uri === '/api/users') {
+$routes = [
+    '/api/users',
+];
+
+if ($method === 'GET' && in_array($uri, $routes)) {
     AuthMiddleware::checkAuth();
 }
 
@@ -38,6 +42,16 @@ switch ($uri) {
     case '/api/users':
         $controller = new ApiController();
         echo $controller->index();
+        return;
+
+    case '/api/update_users':
+        $controller = new ApiController();
+        echo $controller->updateCache();
+        return;
+
+    case '/get_token':
+        $controller = new ApiController();
+        echo $controller->generate_token();
         return;
 
     default:
