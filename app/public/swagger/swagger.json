@@ -1,8 +1,42 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "API de démonstration",
-        "description": "Une brève description de mon API.",
+        "title": "Users",
+        "description": "Users endpoint",
         "version": "1.0.0"
+    },
+    "paths": {
+        "/api/users": {
+            "get": {
+                "operationId": "e94ee45020d55705077e6dbed3d7cfbd",
+                "responses": {
+                    "200": {
+                        "description": "Returns all users from database",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "User": {
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
     }
 }

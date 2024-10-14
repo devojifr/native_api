@@ -14,14 +14,29 @@ composer is used to manage dependencies.
 ## Installation
 
 Clone the repo.
-Go to your cloned repo and call:
+Then, go to your cloned repo and call:
 
 ```bash
 docker compose up --build  
 ```
 
-## Running Tests
+Now, you can access to project with the following url:
+```bash
+http://localhost:8081
+```
 
+## Access PhpMyAdmin (PMA)
+To access to your database, PMA has been installed:
+```bash
+http://localhost:8082
+```
+You can log in with these credentials:
+```bash
+user: user
+password: user
+```
+
+## Running Tests
 First, connect to your web container:
 
 ```bash
@@ -32,5 +47,11 @@ To run tests, run the following command:
 
 ```bash
   ./vendor/bin/phpunit tests/
+```
+
+## Swagger
+You can see available API endpoints with Swagger UI:
+```bash
+http://localhost:8081/swagger
 ```
 

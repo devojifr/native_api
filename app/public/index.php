@@ -21,9 +21,6 @@ use Dotenv\Dotenv;
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
-
 //xdebug_info();
 //phpinfo();
 
