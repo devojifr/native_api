@@ -32,11 +32,6 @@ class Db {
         return self::$instance;
     }
 
-    public function getConnection()
-    {
-        return $this->pdo;
-    }
-
     public function execute(string $sql)
     {
         $stmt = $this->pdo->prepare($sql);
