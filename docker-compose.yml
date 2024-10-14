@@ -21,6 +21,11 @@ services:
     environment:
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      API_KEY: ABCD1234
+      DB_HOST: db
+      DB_NAME: native_api
+      DB_USER: user
+      DB_PASSWORD: user
 
   db:
     image: mysql:5.7

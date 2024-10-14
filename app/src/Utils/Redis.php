@@ -14,7 +14,7 @@ class Redis {
             $this->client = new Client([
                 'scheme' => 'tcp',
                 'host'   => $_SERVER['REDIS_HOST'],
-                'port'   => 6379,
+                'port'   => $_SERVER['REDIS_PORT'],
             ]);
         } catch (\PDOException $e) {
             die("Redis connection error: " . $e->getMessage());
