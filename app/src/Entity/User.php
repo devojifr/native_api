@@ -3,8 +3,23 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use OpenApi\Annotations as OA;
+
+/**
+ * @OA\Schema()
+ */
 class User
 {
+    /**
+     * @OA\Property(type="integer")
+     * @var int
+     */
+    private $id;
+
+    /**
+     * @OA\Property(type="string")
+     * @var string
+     */
     private string $email;
 
     public function __construct(string $email)
