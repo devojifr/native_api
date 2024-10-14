@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Controller\ApiController;
 use App\Middleware\AuthMiddleware;
 use App\Utils\Auth;
+use Dotenv\Dotenv;
 
 //$log = new Logger(__FILE__);
 //$log->pushHandler(new Monolog\Handler\StreamHandler(_LOGS_ . '/app.log', Monolog\Logger::WARNING));
@@ -17,9 +18,14 @@ use App\Utils\Auth;
 //$dbClient = $stmt->execute();
 //$users = $stmt->fetchAll();
 //dump($users);
-
 $method = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
+
+$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+//xdebug_info();
+//phpinfo();
 
 // TMP
 //$userId = 1;
@@ -38,5 +44,5 @@ switch ($uri) {
         return;
 
     default:
-        echo 'Hello World!';
+        echo 'Hello World! ' . date('Y-m-d H:i:s');
 }

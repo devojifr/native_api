@@ -17,7 +17,7 @@ class Auth
 
     public static function validateToken($token)
     {
-        list($payload, $signature) = explode('.', $token);
+        [$payload, $signature] = explode('.', $token);
 
         if (hash_hmac('sha256', $payload, self::$secretKey) !== $signature) {
             return false;
